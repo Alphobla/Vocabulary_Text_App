@@ -107,14 +107,16 @@ class WordTracker:
             return 100
         
         stats = self.word_stats[word_key]
-        days_since_last_use = (datetime.datetime.now() - datetime.datetime.fromisoformat(stats['last_used'])).days
-        times_used = stats['times_used']
-        times_not_understood = stats['times_not_understood']
+        # Use last occurrence date for priority
+        if stats['occurrences']:
+            last_used_date = stats['occurrences'][-1]['date']
+            days_since_last_use = (datetime.datetime.now() - datetime.datetime.fromisoformat(last_used_date)).days
+        else:
+            days_since_last_use = 999
+        times_used = len(stats['occurrences'])
+        times_not_understood = sum(1 for occ in stats['occurrences'] if occ['repeat'])
         
         # Priority formula: 
-        # - Higher priority for words not used recently
-        # - Higher priority for words not understood recently
-        # - Lower priority for frequently used words
         base_priority = min(days_since_last_use * 5, 50)  # Max 50 points for age
         misunderstanding_bonus = times_not_understood * 20  # 20 points per misunderstanding
         frequency_penalty = min(times_used * 2, 30)  # Max 30 point penalty
@@ -123,94 +125,77 @@ class WordTracker:
         return max(priority, 1)  # Minimum priority of 1
     
     def mark_word_used(self, word, translation):
-        """Mark a word as used in current session"""
+        """Mark a word as used in current session (not repeated)"""
         word_key = f"{word}|{translation}"
-        
+        now = datetime.datetime.now().isoformat()
+        occurrence = {"date": now, "repeat": False}
         if word_key not in self.word_stats:
             self.word_stats[word_key] = {
                 'word': word,
                 'translation': translation,
-                'first_seen': datetime.datetime.now().isoformat(),
-                'last_used': datetime.datetime.now().isoformat(),
-                'times_used': 1,
-                'times_not_understood': 0
+                'occurrences': [occurrence]
             }
         else:
-            self.word_stats[word_key]['last_used'] = datetime.datetime.now().isoformat()
-            self.word_stats[word_key]['times_used'] += 1
+            self.word_stats[word_key]['occurrences'].append(occurrence)
     
     def mark_word_not_understood(self, word, translation):
-        """Mark a word as not understood (reset priority)"""
+        """Mark a word as not understood (to be repeated)"""
         word_key = f"{word}|{translation}"
-        
-        if word_key in self.word_stats:
-            self.word_stats[word_key]['times_not_understood'] += 1
-            # Reset last used date to make it high priority again
-            old_date = datetime.datetime.now() - datetime.timedelta(days=30)
-            self.word_stats[word_key]['last_used'] = old_date.isoformat()
-        else:
-            # If word not in stats yet, add it with high priority
+        now = datetime.datetime.now().isoformat()
+        occurrence = {"date": now, "repeat": True}
+        if word_key not in self.word_stats:
             self.word_stats[word_key] = {
                 'word': word,
                 'translation': translation,
-                'first_seen': datetime.datetime.now().isoformat(),
-                'last_used': (datetime.datetime.now() - datetime.timedelta(days=30)).isoformat(),
-                'times_used': 0,
-                'times_not_understood': 1
+                'occurrences': [occurrence]
             }
+        else:
+            self.word_stats[word_key]['occurrences'].append(occurrence)
     
     def select_words_by_priority(self, vocab_list, count=20):
-        """Select words based on priority (spaced repetition)"""
-        # Calculate priorities for all words
+        """Select words based on priority (spaced repetition with randomness) and print urgency bars to terminal"""
+        # Randomly sample 40 words from vocab_list (or all if less)
+        sample_size = min(40, len(vocab_list))
+        sampled_vocab = random.sample(vocab_list, sample_size)
+        # Calculate priorities for sampled words
         word_priorities = []
-        for word, translation in vocab_list:
+        for word, translation in sampled_vocab:
             priority = self.calculate_word_priority(word, translation)
             word_priorities.append((word, translation, priority))
-        
         # Sort by priority (highest first)
         word_priorities.sort(key=lambda x: x[2], reverse=True)
-        
-        # Use weighted random selection for top candidates
-        # Take top 40 words and select 20 with weighted probability
-        top_candidates = word_priorities[:min(40, len(word_priorities))]
-        
-        selected = []
-        weights = [item[2] for item in top_candidates]
-        
-        for _ in range(min(count, len(top_candidates))):
-            if not top_candidates:
-                break
-                
-            # Weighted random selection
-            chosen_idx = random.choices(range(len(top_candidates)), weights=weights)[0]
-            chosen_word, chosen_translation, _ = top_candidates.pop(chosen_idx)
-            weights.pop(chosen_idx)
-            
-            selected.append((chosen_word, chosen_translation))
-            
+        # Print urgency bars to terminal (no words, just bars)
+        max_urgency = max([p for _, _, p in word_priorities]) if word_priorities else 1
+        print("\n[ Vocabulary selection: Urgency bars (top 20 marked) ]")
+        for i, (_, _, p) in enumerate(word_priorities):
+            bar_len = int((p / max_urgency) * 40)
+            bar = '█' * bar_len
+            mark = '*' if i < count else ' '
+            print(f"{bar:<40} {mark}")
+        # Select top N
+        selected = [(w, t) for w, t, _ in word_priorities[:count]]
         return selected
 
 # Initialize word tracker
-tracking_file = os.path.join(csv_folder, "word_tracking.json")
+tracking_file = os.path.join(os.getcwd(), "word_tracking.json")
 word_tracker = WordTracker(tracking_file)
 
 # Select words using priority system (spaced repetition)
 selected = word_tracker.select_words_by_priority(vocab, 20)
 french_words = [pair[0] for pair in selected]
 
-print(f"Selected {len(selected)} words based on learning priorities:")
-for i, (word, translation) in enumerate(selected[:5], 1):
-    priority = word_tracker.calculate_word_priority(word, translation)
-    print(f"  {i}. {word} ({translation}) - Priority: {priority}")
-if len(selected) > 5:
-    print(f"  ... and {len(selected) - 5} more words")
+# Remove printout of selected words and priorities
+# print(f"Selected {len(selected)} words based on learning priorities:")
+# for i, (word, translation) in enumerate(selected[:5], 1):
+#     priority = word_tracker.calculate_word_priority(word, translation)
+#     print(f"  {i}. {word} ({translation}) - Priority: {priority}")
+# if len(selected) > 5:
+#     print(f"  ... and {len(selected) - 5} more words")
 
 # Generate text and audio, then launch desktop app
 def generate_and_launch_app(selected_vocab, word_tracker):
     """Generate text and audio, then launch the desktop application"""
-    print("\n🎯 Selected vocabulary for this session:")
-    for i, (word, translation) in enumerate(selected_vocab, 1):
-        print(f"{i:2}. {word} → {translation}")
+  
     
     print(f"\n📝 Generating French text with {len(selected_vocab)} vocabulary words...")
     
@@ -227,7 +212,7 @@ def generate_and_launch_app(selected_vocab, word_tracker):
         
         vocab_list_str = ", ".join([f"{word} ({translation})" for word, translation in selected_vocab])
         
-        prompt = f"""Write an engaging short story in French (about 200-300 words) that naturally incorporates these vocabulary words:
+        prompt = f"""Write an engaging short story in French (about 300 words, also more if needed) that naturally incorporates these vocabulary words:
 
 {vocab_list_str}
 
@@ -341,6 +326,9 @@ def generate_and_review_text(selected_vocab, word_tracker):
 
 Requirements:
 - Use ALL the vocabulary words naturally in context
+- Verbs can appear in any form
+- Nouns can be used in any form
+- Adjectives can be used in any form
 - Make the story interesting and coherent
 - Use conversational, modern French
 - The story should help reinforce the meaning of each word through context

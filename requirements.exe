@@ -1,3 +1,5 @@
 openai
-dotenv
+python-dotenv
 pygame
+mutagen
+python-vlc
