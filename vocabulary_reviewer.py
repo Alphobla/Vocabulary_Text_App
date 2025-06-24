@@ -4,6 +4,7 @@ import json
 import os
 import datetime
 import vlc
+import sys
 
 class VocabularyReviewer:
     def __init__(self, vocab_list, word_tracker, generated_text=None, audio_path=None):
@@ -16,6 +17,19 @@ class VocabularyReviewer:
             else:
                 word, translation, pronunciation = vocab_entry
             self.vocab_list.append((word, translation, pronunciation))
+        
+        # Fix VLC initialization
+        try:
+            self.vlc_instance = vlc.Instance()
+            if self.vlc_instance is None:
+                raise Exception("VLC instance could not be created")
+            # Test if we can create a media player
+            test_player = self.vlc_instance.media_player_new()
+            if test_player is None:
+                raise Exception("VLC media player could not be created")
+        except Exception as e:
+            messagebox.showerror("Error", f"VLC media player is not installed or not working properly: {e}\nProgram will exit.")
+            sys.exit(1)
             
         self.word_tracker = word_tracker
         self.generated_text = generated_text
@@ -30,6 +44,7 @@ class VocabularyReviewer:
         self.root.configure(bg='#f0f0f0')
         self.setup_start_view()
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+        
 
     def setup_start_view(self):
         for widget in self.root.winfo_children():
@@ -46,10 +61,11 @@ class VocabularyReviewer:
             text_widget.insert('1.0', self.generated_text)
             text_widget.config(state='disabled')
         if self.audio_path and os.path.exists(self.audio_path):
-            self.vlc_instance = vlc.Instance()
-            self.vlc_player = self.vlc_instance.media_player_new()
-            media = self.vlc_instance.media_new(self.audio_path)
+            # Use the already created and tested VLC instance
+            self.vlc_player = self.vlc_instance.media_player_new() # type: ignore
+            media = self.vlc_instance.media_new(self.audio_path) # type: ignore
             self.vlc_player.set_media(media)
+            
             audio_frame = ttk.Frame(main_frame)
             audio_frame.pack(pady=(0, 20))
             self.play_btn = ttk.Button(audio_frame, text="▶️ Play Audio", command=self.play_audio)
