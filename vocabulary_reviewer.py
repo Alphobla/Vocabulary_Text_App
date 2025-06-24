@@ -7,7 +7,16 @@ import vlc
 
 class VocabularyReviewer:
     def __init__(self, vocab_list, word_tracker, generated_text=None, audio_path=None):
-        self.vocab_list = vocab_list
+        # Handle both 2-tuple and 3-tuple formats
+        self.vocab_list = []
+        for vocab_entry in vocab_list:
+            if len(vocab_entry) == 2:
+                word, translation = vocab_entry
+                pronunciation = ""
+            else:
+                word, translation, pronunciation = vocab_entry
+            self.vocab_list.append((word, translation, pronunciation))
+            
         self.word_tracker = word_tracker
         self.generated_text = generated_text
         self.audio_path = audio_path
@@ -154,9 +163,15 @@ class VocabularyReviewer:
         tiles_frame = ttk.Frame(main_frame)
         tiles_frame.pack(pady=10)
         self.tiles = []
-        for i, (french, german) in enumerate(self.vocab_list):
-            tile = ttk.Button(tiles_frame, text=f"{french} → {german}", width=25, style='Tile.TButton')
-            tile.grid(row=i//3, column=i%3, padx=10, pady=10)
+        for i, (french, german, pronunciation) in enumerate(self.vocab_list):
+            # Create tile text with pronunciation if available
+            if pronunciation:
+                tile_text = f"{french} [{pronunciation}] → {german}"
+            else:
+                tile_text = f"{french} → {german}"
+            
+            tile = ttk.Button(tiles_frame, text=tile_text, width=35, style='Tile.TButton')
+            tile.grid(row=i//2, column=i%2, padx=10, pady=10)  # 2 columns instead of 3 for wider tiles
             tile.config(command=lambda t=tile, w=(french, german): self.toggle_tile(t, w))
             self.tiles.append((tile, (french, german)))
         btn = ttk.Button(main_frame, text="Check in Feedback", command=self.check_feedback, style='Accent.TButton')

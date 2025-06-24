@@ -7,17 +7,20 @@ import glob
 import re
 from dotenv import load_dotenv
 import openai
+import pandas as pd
 
 # Load environment variables from .env file
 load_dotenv()
 
 
 # --- Find the newest Favorites_YYYYMMDD.csv file ---
-def get_latest_favorites_csv(folder):
-    pattern = os.path.join(folder, 'Favorites_*.csv')
-    files = glob.glob(pattern)
+def get_latest_favorites_csv_or_xlsx(folder):
+    # Support both CSV and XLSX files
+    pattern_csv = os.path.join(folder, 'Favorites_*.csv')
+    pattern_xlsx = os.path.join(folder, 'Favorites_*.xlsx')
+    files = glob.glob(pattern_csv) + glob.glob(pattern_xlsx)
     if not files:
-        raise FileNotFoundError('No Favorites_*.csv file found in the folder.')
+        raise FileNotFoundError('No Favorites_*.csv or Favorites_*.xlsx file found in the folder.')
     
     # Sort by date in filename (YYYYMMDD)
     def extract_date(f):
@@ -61,21 +64,128 @@ def get_downloads_folder():
     return current_dir
 
 csv_folder = get_downloads_folder()
-csv_path = get_latest_favorites_csv(csv_folder)
+csv_path = get_latest_favorites_csv_or_xlsx(csv_folder)
 
 # Read vocabulary from CSV
-vocab = []
-with open(csv_path, encoding="utf-8") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        # Handle both Reverso export format and custom format
-        source_text = row.get("source") or row.get("Search text", "")
-        target_text = row.get("target") or row.get("Translation text", "")
+def read_vocabulary_file(file_path):
+    """Read vocabulary from CSV or XLSX file with proper encoding support"""
+    vocab = []
+    
+    try:
+        # Determine file type
+        file_extension = os.path.splitext(file_path)[1].lower()
         
-        if source_text and target_text:
-            vocab.append((source_text.strip(), target_text.strip()))
+        if file_extension == '.xlsx':
+            # Read Excel file
+            print("📊 Reading Excel file...")
+            df = pd.read_excel(file_path)
+            
+            # Convert DataFrame to list of dictionaries
+            rows = df.to_dict('records')
+            
+        elif file_extension == '.csv':
+            # Read CSV file with multiple encoding attempts for Arabic support
+            print("📄 Reading CSV file...")
+            encodings_to_try = ['utf-8', 'utf-8-sig', 'cp1256', 'iso-8859-6']
+            
+            df = None
+            for encoding in encodings_to_try:
+                try:
+                    df = pd.read_csv(file_path, encoding=encoding)
+                    print(f"✅ Successfully read with {encoding} encoding")
+                    break
+                except UnicodeDecodeError:
+                    print(f"⚠️ Failed with {encoding} encoding, trying next...")
+                    continue
+            
+            if df is None:
+                raise ValueError("Could not read file with any supported encoding")
+            
+            # Convert DataFrame to list of dictionaries
+            rows = df.to_dict('records')
+            
+        else:
+            raise ValueError(f"Unsupported file format: {file_extension}")
+        
+        # Process rows into vocabulary tuples
+        for row in rows:
+            # Get column names (convert to list to handle both dict keys and DataFrame columns)
+            columns = list(row.keys())
+            
+            # Handle NaN values from pandas
+            for key in row:
+                if pd.isna(row[key]):
+                    row[key] = ""
+            
+            # Try different column name combinations for source text
+            source_text = (
+                row.get("source") or 
+                row.get("Source") or
+                row.get("Search text") or 
+                row.get("English") or 
+                row.get("French") or 
+                row.get("German") or
+                row.get("Text") or
+                row.get(columns[0]) if columns else ""
+            )
+            
+            # Try different column name combinations for target text
+            target_text = (
+                row.get("target") or 
+                row.get("Target") or
+                row.get("Translation text") or 
+                row.get("Arabic") or 
+                row.get("AR") or
+                row.get("AREN") or
+                row.get("Translation") or
+                row.get(columns[1]) if len(columns) > 1 else ""
+            )
+            
+            # Try to get pronunciation if available
+            pronunciation = (
+                row.get("pronunciation") or 
+                row.get("Pronunciation") or 
+                row.get("phonetic") or 
+                row.get("Phonetic") or
+                row.get("AREN") or
+                row.get("Romanization") or
+                row.get(columns[2]) if len(columns) > 2 else ""
+            )
+            
+            # Clean up text (strip whitespace and handle empty values)
+            source_text = str(source_text).strip() if source_text else ""
+            target_text = str(target_text).strip() if target_text else ""
+            pronunciation = str(pronunciation).strip() if pronunciation else ""
+            
+            # Only add if both source and target are present
+            if source_text and target_text:
+                vocab_entry = (source_text, target_text, pronunciation)
+                vocab.append(vocab_entry)
+        
+        return vocab
+        
+    except Exception as e:
+        print(f"❌ Error reading file: {e}")
+        raise
+
+vocab = read_vocabulary_file(csv_path)
 
 print(f"Loaded {len(vocab)} vocabulary pairs from {os.path.basename(csv_path)}")
+
+# Check if pronunciations are available
+pronunciations_available = any(len(entry) > 2 and entry[2] for entry in vocab)
+if pronunciations_available:
+    print("✨ Pronunciation information detected and loaded!")
+else:
+    print("ℹ️ No pronunciation information found in file.")
+
+# Check for Arabic text
+arabic_detected = any(
+    any('\u0600' <= char <= '\u06FF' for char in entry[0] + entry[1]) 
+    for entry in vocab
+)
+if arabic_detected:
+    print("🌍 Arabic text detected - proper encoding applied!")
 
 # --- Word tracking system ---
 class WordTracker:
@@ -151,7 +261,7 @@ class WordTracker:
             }
         else:
             self.word_stats[word_key]['occurrences'].append(occurrence)
-    
+
     def select_words_by_priority(self, vocab_list, count=20):
         """Select words based on priority (spaced repetition with randomness) and print urgency bars to terminal"""
         # Randomly sample 40 words from vocab_list (or all if less)
@@ -159,21 +269,29 @@ class WordTracker:
         sampled_vocab = random.sample(vocab_list, sample_size)
         # Calculate priorities for sampled words
         word_priorities = []
-        for word, translation in sampled_vocab:
+        for vocab_entry in sampled_vocab:
+            # Handle both 2-tuple (word, translation) and 3-tuple (word, translation, pronunciation)
+            if len(vocab_entry) == 2:
+                word, translation = vocab_entry
+                pronunciation = ""
+            else:
+                word, translation, pronunciation = vocab_entry
+            
             priority = self.calculate_word_priority(word, translation)
-            word_priorities.append((word, translation, priority))
+            word_priorities.append((word, translation, pronunciation, priority))
+            
         # Sort by priority (highest first)
-        word_priorities.sort(key=lambda x: x[2], reverse=True)
+        word_priorities.sort(key=lambda x: x[3], reverse=True)
         # Print urgency bars to terminal (no words, just bars)
-        max_urgency = max([p for _, _, p in word_priorities]) if word_priorities else 1
+        max_urgency = max([p for _, _, _, p in word_priorities]) if word_priorities else 1
         print("\n[ Vocabulary selection: Urgency bars (top 20 marked) ]")
-        for i, (_, _, p) in enumerate(word_priorities):
+        for i, (_, _, _, p) in enumerate(word_priorities):
             bar_len = int((p / max_urgency) * 40)
             bar = '█' * bar_len
             mark = '*' if i < count else ' '
             print(f"{bar:<40} {mark}")
-        # Select top N
-        selected = [(w, t) for w, t, _ in word_priorities[:count]]
+        # Select top N - return 3-tuple format
+        selected = [(w, t, pron) for w, t, pron, _ in word_priorities[:count]]
         return selected
 
 # Initialize word tracker
@@ -197,7 +315,7 @@ def generate_and_launch_app(selected_vocab, word_tracker):
     """Generate text and audio, then launch the desktop application"""
   
     
-    print(f"\n📝 Generating French text with {len(selected_vocab)} vocabulary words...")
+    print(f"\n📝 Generating foreing language text with {len(selected_vocab)} vocabulary words...")
     
     # Get OpenAI API key from environment
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -206,13 +324,20 @@ def generate_and_launch_app(selected_vocab, word_tracker):
         print("Please add your OpenAI API key to the .env file")
         return
     
-    try:
-        # Generate text using OpenAI
+    try:        # Generate text using OpenAI
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
         
-        vocab_list_str = ", ".join([f"{word} ({translation})" for word, translation in selected_vocab])
+        # Handle both 2-tuple and 3-tuple formats for vocab_list_str
+        vocab_strings = []
+        for vocab_entry in selected_vocab:
+            if len(vocab_entry) == 2:
+                word, translation = vocab_entry
+            else:
+                word, translation, pronunciation = vocab_entry
+            vocab_strings.append(f"{word} ({translation})")
+        vocab_list_str = ", ".join(vocab_strings)
         
-        prompt = f"""Write an engaging short story in French (about 300 words, also more if needed) that naturally incorporates these vocabulary words:
+        prompt = f"""Write an engaging short story in in the language of the Vocabulary (about 300 words, also more if needed) that naturally incorporates these vocabulary words:
 
 {vocab_list_str}
 
@@ -223,7 +348,7 @@ Requirements:
 - The story should help reinforce the meaning of each word through context
 - Include some dialogue if possible
 
-Please write only the French story, no other text."""
+Please write only the story in the foreign language, no other text."""
 
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
@@ -236,7 +361,7 @@ Please write only the French story, no other text."""
         if not generated_text:
             raise ValueError("Failed to generate text from OpenAI API")
         
-        print("\n📖 Generated French text successfully!")
+        print("\n📖 Generated foreing language text successfully!")
         
         # Generate TTS audio
         print("🎵 Generating audio...")
@@ -283,7 +408,12 @@ Please write only the French story, no other text."""
         print(f"❌ Error: {e}")
 
 # Mark selected words as used in this session
-for word, translation in selected:
+for vocab_entry in selected:
+    # Handle both 2-tuple and 3-tuple formats
+    if len(vocab_entry) == 2:
+        word, translation = vocab_entry
+    else:
+        word, translation, pronunciation = vocab_entry
     word_tracker.mark_word_used(word, translation)
 
 # Launch the desktop application
@@ -312,13 +442,20 @@ def generate_and_review_text(selected_vocab, word_tracker):
     if not OPENAI_API_KEY:
         print("❌ Error: OPENAI_API_KEY not found in .env file")
         return
-    
-    # Generate text using OpenAI
+      # Generate text using OpenAI
     try:
         from openai import OpenAI
         client = OpenAI(api_key=OPENAI_API_KEY)
         
-        vocab_list_str = ", ".join([f"{word} ({translation})" for word, translation in selected_vocab])
+        # Handle both 2-tuple and 3-tuple formats for vocab_list_str
+        vocab_strings = []
+        for vocab_entry in selected_vocab:
+            if len(vocab_entry) == 2:
+                word, translation = vocab_entry
+            else:
+                word, translation, pronunciation = vocab_entry
+            vocab_strings.append(f"{word} ({translation})")
+        vocab_list_str = ", ".join(vocab_strings)
         
         prompt = f"""Write an engaging short story in French (about 200-300 words) that naturally incorporates these vocabulary words and their meanings:
 
@@ -348,10 +485,13 @@ Please write only the French story, no other text."""
         print("=" * 50)
         print(generated_text)
         print("=" * 50)
-        
-        # Show vocabulary reference
+          # Show vocabulary reference
         print(f"\n📚 Vocabulary Reference:")
-        for word, translation in selected_vocab:
+        for vocab_entry in selected_vocab:
+            if len(vocab_entry) == 2:
+                word, translation = vocab_entry
+            else:
+                word, translation, pronunciation = vocab_entry
             print(f"• {word} → {translation}")
         
         # Ask if user wants to review vocabulary
