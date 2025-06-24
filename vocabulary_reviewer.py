@@ -8,15 +8,15 @@ import sys
 
 class VocabularyReviewer:
     def __init__(self, vocab_list, word_tracker, generated_text=None, audio_path=None):
-        # Handle both 2-tuple and 3-tuple formats
+        # Handle both 2-tuple and 3-tuple formats, using generic terms
         self.vocab_list = []
         for vocab_entry in vocab_list:
             if len(vocab_entry) == 2:
-                word, translation = vocab_entry
+                source, target = vocab_entry
                 pronunciation = ""
             else:
-                word, translation, pronunciation = vocab_entry
-            self.vocab_list.append((word, translation, pronunciation))
+                source, target, pronunciation = vocab_entry
+            self.vocab_list.append((source, target, pronunciation))
         
         # Fix VLC initialization
         try:
@@ -39,7 +39,7 @@ class VocabularyReviewer:
         self.tiles = []
         self.save_allowed = False
         self.root = tk.Tk()
-        self.root.title("French Vocabulary Review")
+        self.root.title("Vocabulary Review")
         self.root.geometry("900x700")
         self.root.configure(bg='#f0f0f0')
         self.setup_start_view()
@@ -179,17 +179,17 @@ class VocabularyReviewer:
         tiles_frame = ttk.Frame(main_frame)
         tiles_frame.pack(pady=10)
         self.tiles = []
-        for i, (french, german, pronunciation) in enumerate(self.vocab_list):
+        for i, (source, target, pronunciation) in enumerate(self.vocab_list):
             # Create tile text with pronunciation if available
             if pronunciation:
-                tile_text = f"{french} [{pronunciation}] → {german}"
+                tile_text = f"{source} [{pronunciation}] → {target}"
             else:
-                tile_text = f"{french} → {german}"
+                tile_text = f"{source} → {target}"
             
             tile = ttk.Button(tiles_frame, text=tile_text, width=35, style='Tile.TButton')
-            tile.grid(row=i//2, column=i%2, padx=10, pady=10)  # 2 columns instead of 3 for wider tiles
-            tile.config(command=lambda t=tile, w=(french, german): self.toggle_tile(t, w))
-            self.tiles.append((tile, (french, german)))
+            tile.grid(row=i//2, column=i%2, padx=10, pady=10)
+            tile.config(command=lambda t=tile, w=(source, target): self.toggle_tile(t, w))
+            self.tiles.append((tile, (source, target)))
         btn = ttk.Button(main_frame, text="Check in Feedback", command=self.check_feedback, style='Accent.TButton')
         btn.pack(pady=30)
 
@@ -212,7 +212,7 @@ class VocabularyReviewer:
         summary = ttk.Label(main_frame, text=f"Words to repeat: {len(self.difficult_words)}\nWords known: {len(self.vocab_list) - len(self.difficult_words)}", font=('Arial', 14))
         summary.pack(pady=20)
         if self.difficult_words:
-            words = '\n'.join([f"• {f} → {g}" for (f, g) in self.difficult_words])
+            words = '\n'.join([f"• {s} → {t}" for (s, t) in self.difficult_words])
             lbl = ttk.Label(main_frame, text=f"To repeat:\n{words}", font=('Arial', 12))
             lbl.pack(pady=10)
         btn_frame = ttk.Frame(main_frame)
@@ -222,11 +222,11 @@ class VocabularyReviewer:
 
     def save_and_exit(self):
         if self.save_allowed:
-            for (french, german) in self.vocab_list:
-                if (french, german) in self.difficult_words:
-                    self.word_tracker.mark_word_not_understood(french, german)
+            for (source, target, _) in self.vocab_list:
+                if (source, target) in self.difficult_words:
+                    self.word_tracker.mark_word_not_understood(source, target)
                 else:
-                    self.word_tracker.mark_word_used(french, german)
+                    self.word_tracker.mark_word_used(source, target)
             self.word_tracker.save_tracking_data()
         self.review_complete = True
         self.root.quit()

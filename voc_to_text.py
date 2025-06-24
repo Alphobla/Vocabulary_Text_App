@@ -151,8 +151,7 @@ class VocabularyLoader:
         pronunciation = (
             row.get("pronunciation") or row.get("Pronunciation") or
             row.get("phonetic") or row.get("Phonetic") or
-            row.get("AREN") or row.get("Romanization") or
-            row.get(columns[2]) if len(columns) > 2 else ""
+            row.get("AREN") or row.get("Romanization")
         )
         
         # Clean up text
