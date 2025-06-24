@@ -838,5 +838,285 @@
         "repeat": true
       }
     ]
+  },
+  "épuisé|erschöpft": {
+    "word": "épuisé",
+    "translation": "erschöpft",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "d'emménager|einzuziehen": {
+    "word": "d'emménager",
+    "translation": "einzuziehen",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "franchir un cap|einen Wendepunkt": {
+    "word": "franchir un cap",
+    "translation": "einen Wendepunkt",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "tendre|ausstrecken": {
+    "word": "tendre",
+    "translation": "ausstrecken",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "en plaine|im Flachland": {
+    "word": "en plaine",
+    "translation": "im Flachland",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "j'ai du mal|es fällt mir schwer": {
+    "word": "j'ai du mal",
+    "translation": "es fällt mir schwer",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "faire le ménage|putzen": {
+    "word": "faire le ménage",
+    "translation": "putzen",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "bavarder|plaudern": {
+    "word": "bavarder",
+    "translation": "plaudern",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "collation|Snack": {
+    "word": "collation",
+    "translation": "Snack",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "se méfier|misstrauen": {
+    "word": "se méfier",
+    "translation": "misstrauen",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "coursive|Gang": {
+    "word": "coursive",
+    "translation": "Gang",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "détériorer|verschlechtern": {
+    "word": "détériorer",
+    "translation": "verschlechtern",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "recueil|Sammlung": {
+    "word": "recueil",
+    "translation": "Sammlung",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "faubourg|Vorort": {
+    "word": "faubourg",
+    "translation": "Vorort",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "en cachette|heimlich": {
+    "word": "en cachette",
+    "translation": "heimlich",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "se fâcher|wütend sein": {
+    "word": "se fâcher",
+    "translation": "wütend sein",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "gonfler|aufblasen": {
+    "word": "gonfler",
+    "translation": "aufblasen",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "embaucher|einstellen": {
+    "word": "embaucher",
+    "translation": "einstellen",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
+  },
+  "tout aussi|genauso": {
+    "word": "tout aussi",
+    "translation": "genauso",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": false
+      }
+    ]
+  },
+  "s'affoler|durchdrehen": {
+    "word": "s'affoler",
+    "translation": "durchdrehen",
+    "occurrences": [
+      {
+        "date": "2025-06-23T23:31:08.582322",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-23T23:40:01.911193",
+        "repeat": true
+      }
+    ]
   }
 }
