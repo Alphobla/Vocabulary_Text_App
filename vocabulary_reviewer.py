@@ -238,7 +238,6 @@ class VocabularyReviewer:
                 if hasattr(self, 'time_label'):
                     current_time = self.format_time(pos)
                     total_time = self.format_time(self.audio_length)
-                    self.time_label.config(text=f"{current_time} / {total_time}")
             except:
                 pass
         self.root.after(200, self.update_audio_progress)
@@ -498,18 +497,16 @@ class VocabularyReviewer:
             ttk.Separator(playback_frame, orient='vertical').pack(side=tk.LEFT, fill=tk.Y, padx=15)
             
             # Speed controls
-            ttk.Label(playback_frame, text="Speed:", style='Body.TLabel').pack(side=tk.LEFT, padx=(0, 5))
-            self.slower_btn = ttk.Button(playback_frame, text="-5%", command=lambda: self.change_speed(-0.05), style='Modern.TButton')
+            self.slower_btn = ttk.Button(playback_frame, text="🐌 -5%", command=lambda: self.change_speed(-0.05), style='Modern.TButton')
             self.slower_btn.pack(side=tk.LEFT, padx=2)
             
-            self.faster_btn = ttk.Button(playback_frame, text="+5%", command=lambda: self.change_speed(0.05), style='Modern.TButton')
+            self.faster_btn = ttk.Button(playback_frame, text="🐇 +5%", command=lambda: self.change_speed(0.05), style='Modern.TButton')
             self.faster_btn.pack(side=tk.LEFT, padx=2)
             
             # Bottom row - Progress bar
             progress_row = ttk.Frame(audio_frame)
             progress_row.pack(fill=tk.X)
             
-            ttk.Label(progress_row, style='Body.TLabel').pack(side=tk.LEFT, padx=(0, 10))
             
             self.audio_progress = tk.DoubleVar()
             self.audio_progress_bar = ttk.Scale(progress_row, 
@@ -522,13 +519,10 @@ class VocabularyReviewer:
             self.audio_progress_bar.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 10))
             self.audio_progress_bar.bind('<ButtonRelease-1>', self.slider_seek_commit)
             
-            # Time display
-            self.time_label = ttk.Label(progress_row, text="00:00 / 00:00", style='Body.TLabel')
-            self.time_label.pack(side=tk.LEFT, padx=(10, 0))
             
             # Initialize audio variables
             self.audio_length = 1
-            self.audio_speed = 1.0
+            self.audio_speed = .9
             self._slider_dragging = False
             self.update_audio_progress()
         else:
@@ -545,13 +539,11 @@ class VocabularyReviewer:
             ttk.Button(playback_frame, text="+4s ⏩", state=tk.DISABLED, style='Modern.TButton').pack(side=tk.LEFT, padx=5)
             ttk.Separator(playback_frame, orient='vertical').pack(side=tk.LEFT, fill=tk.Y, padx=15)
             ttk.Label(playback_frame, style='Body.TLabel').pack(side=tk.LEFT, padx=(0, 5))
-            ttk.Button(playback_frame, text="-5%", state=tk.DISABLED, style='Modern.TButton').pack(side=tk.LEFT, padx=2)
-            ttk.Button(playback_frame, text="+5%", state=tk.DISABLED, style='Modern.TButton').pack(side=tk.LEFT, padx=2)
+            ttk.Button(playback_frame, text="🐌 -5%", state=tk.DISABLED, style='Modern.TButton').pack(side=tk.LEFT, padx=2)
+            ttk.Button(playback_frame, text="🐇 +5%", state=tk.DISABLED, style='Modern.TButton').pack(side=tk.LEFT, padx=2)
             progress_row = ttk.Frame(audio_frame)
             progress_row.pack(fill=tk.X)
-            ttk.Label(progress_row, text="Progress:", style='Body.TLabel').pack(side=tk.LEFT, padx=(0, 10))
             ttk.Scale(progress_row, length=500, from_=0, to=100, orient=tk.HORIZONTAL, state=tk.DISABLED).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 10))
-            ttk.Label(progress_row, text="00:00 / 00:00", style='Body.TLabel').pack(side=tk.LEFT, padx=(10, 0))
             # Message
             ttk.Label(audio_frame, text="No audio file available", style='Body.TLabel').pack(pady=10)
 
