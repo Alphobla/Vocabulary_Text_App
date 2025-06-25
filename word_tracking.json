@@ -320,6 +320,14 @@
       {
         "date": "2025-06-23T22:37:21.796624",
         "repeat": true
+      },
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
       }
     ]
   },
@@ -817,6 +825,14 @@
       },
       {
         "date": "2025-06-23T22:51:07.495457",
+        "repeat": true
+      },
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
         "repeat": true
       }
     ]
@@ -2211,6 +2227,538 @@
       },
       {
         "date": "2025-06-25T00:34:41.717294",
+        "repeat": false
+      }
+    ]
+  },
+  "sou|Cent": {
+    "word": "sou",
+    "translation": "Cent",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "boussole|Kompass": {
+    "word": "boussole",
+    "translation": "Kompass",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "mettre en demeure|muss": {
+    "word": "mettre en demeure",
+    "translation": "muss",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "pour de bon|für immer": {
+    "word": "pour de bon",
+    "translation": "für immer",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "peser|wiegen": {
+    "word": "peser",
+    "translation": "wiegen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "Quoi qu'il en soit|wie auch immer": {
+    "word": "Quoi qu'il en soit",
+    "translation": "wie auch immer",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "pertinent|relevant": {
+    "word": "pertinent",
+    "translation": "relevant",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "cocher|aktivieren": {
+    "word": "cocher",
+    "translation": "aktivieren",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "Viol|Vergewaltigung": {
+    "word": "Viol",
+    "translation": "Vergewaltigung",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "caleçon|Unterwäsche": {
+    "word": "caleçon",
+    "translation": "Unterwäsche",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "appartenir|gehören": {
+    "word": "appartenir",
+    "translation": "gehören",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "résoudre|lösen": {
+    "word": "résoudre",
+    "translation": "lösen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "renseignement américain|amerikanischen Geheimdienst": {
+    "word": "renseignement américain",
+    "translation": "amerikanischen Geheimdienst",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "manquement|Verstoß": {
+    "word": "manquement",
+    "translation": "Verstoß",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "à l'instar de|ebenso wie": {
+    "word": "à l'instar de",
+    "translation": "ebenso wie",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "se barrer|abhauen": {
+    "word": "se barrer",
+    "translation": "abhauen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "sondage|Umfrage": {
+    "word": "sondage",
+    "translation": "Umfrage",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "démontrer|aufzeigen": {
+    "word": "démontrer",
+    "translation": "aufzeigen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": true
+      }
+    ]
+  },
+  "avaler|schlucken": {
+    "word": "avaler",
+    "translation": "schlucken",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "squatteurs|Hausbesetzer": {
+    "word": "squatteurs",
+    "translation": "Hausbesetzer",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:10:55.229036",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:23:54.951591",
+        "repeat": false
+      }
+    ]
+  },
+  "comble|Höhepunkt": {
+    "word": "comble",
+    "translation": "Höhepunkt",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "déranger|stören": {
+    "word": "déranger",
+    "translation": "stören",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "s'avérer|erweisen": {
+    "word": "s'avérer",
+    "translation": "erweisen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "se précipiter|eilte": {
+    "word": "se précipiter",
+    "translation": "eilte",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "SUISSE alémanique|Deutschschweiz": {
+    "word": "SUISSE alémanique",
+    "translation": "Deutschschweiz",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "sale|schmutzig": {
+    "word": "sale",
+    "translation": "schmutzig",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "toutefois|jedoch": {
+    "word": "toutefois",
+    "translation": "jedoch",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "anéantir|vernichten": {
+    "word": "anéantir",
+    "translation": "vernichten",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "songer|denken": {
+    "word": "songer",
+    "translation": "denken",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "boîte|Schachtel": {
+    "word": "boîte",
+    "translation": "Schachtel",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "retombées|Auswirkungen": {
+    "word": "retombées",
+    "translation": "Auswirkungen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "d'autant que|zumal": {
+    "word": "d'autant que",
+    "translation": "zumal",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "assagir|ruhiger zu werden": {
+    "word": "assagir",
+    "translation": "ruhiger zu werden",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "basculer|wechseln": {
+    "word": "basculer",
+    "translation": "wechseln",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "prévisions|Prognosen": {
+    "word": "prévisions",
+    "translation": "Prognosen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "glaner|sammeln": {
+    "word": "glaner",
+    "translation": "sammeln",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      }
+    ]
+  },
+  "antan|altmodische": {
+    "word": "antan",
+    "translation": "altmodische",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "dissimuler|verbergen": {
+    "word": "dissimuler",
+    "translation": "verbergen",
+    "occurrences": [
+      {
+        "date": "2025-06-25T09:24:49.095532",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-25T09:41:27.574173",
         "repeat": false
       }
     ]

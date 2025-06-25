@@ -288,57 +288,32 @@ class VocabularyReviewer:
         subtitle = ttk.Label(main_frame, text="Click on vocabulary items that need more practice", style='Subheading.TLabel')
         subtitle.pack(pady=(0, 30))
         
-        # Scrollable tiles container
-        canvas_frame = ttk.Frame(main_frame)
-        canvas_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 30))
+        # Tiles grid (4 columns x 5 rows, max 20 items, no scrolling)
+        grid_frame = ttk.Frame(main_frame)
+        grid_frame.pack(expand=True)
         
-        canvas = tk.Canvas(canvas_frame, bg='#ffffff', highlightthickness=0)
-        scrollbar = ttk.Scrollbar(canvas_frame, orient="vertical", command=canvas.yview)
-        scrollable_frame = ttk.Frame(canvas)
-        
-        scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-        
-        # Tiles grid
         self.tiles = []
-        cols = 2  # Two columns for better readability
+        cols = 4
+        rows = 5
+        max_tiles = cols * rows
+        vocab_to_show = self.vocab_list[:max_tiles]
         
-        for i, (source, target, pronunciation) in enumerate(self.vocab_list):
-            # Create tile text with pronunciation if available
+        for i, (source, target, pronunciation) in enumerate(vocab_to_show):
             if pronunciation:
                 tile_text = f"{source} [{pronunciation}] → {target}"
             else:
                 tile_text = f"{source} → {target}"
-            
-            tile = ttk.Button(scrollable_frame, 
-                            text=tile_text, 
-                            width=50, 
-                            style='Tile.TButton')
-            
+            tile = ttk.Button(grid_frame, text=tile_text, width=30, style='Tile.TButton')
             row = i // cols
             col = i % cols
             tile.grid(row=row, column=col, padx=15, pady=10, sticky="ew")
-            
             tile.config(command=lambda t=tile, w=(source, target): self.toggle_tile(t, w))
             self.tiles.append((tile, (source, target)))
         
-        # Configure grid weights for responsive design
         for col in range(cols):
-            scrollable_frame.columnconfigure(col, weight=1)
+            grid_frame.columnconfigure(col, weight=1)
         
-        canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
-        
-        # Bind mousewheel to canvas
-        def _on_mousewheel(event):
-            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        canvas.bind_all("<MouseWheel>", _on_mousewheel)
-          # Action button
+        # Action button
         btn = ttk.Button(main_frame, text="Continue", command=self.check_feedback, style='Accent.TButton')
         btn.pack(pady=20)
 
