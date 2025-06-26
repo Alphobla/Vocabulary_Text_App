@@ -1220,6 +1220,14 @@
       {
         "date": "2025-06-24T17:13:16.882417",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
       }
     ]
   },
@@ -2759,6 +2767,272 @@
       },
       {
         "date": "2025-06-25T09:41:27.574173",
+        "repeat": false
+      }
+    ]
+  },
+  "Se muer|sich": {
+    "word": "Se muer",
+    "translation": "sich",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "défier|herausfordern": {
+    "word": "défier",
+    "translation": "herausfordern",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "la foule|Menge": {
+    "word": "la foule",
+    "translation": "Menge",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "pouce|Daumen": {
+    "word": "pouce",
+    "translation": "Daumen",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "rien à foutre|scheiß drauf": {
+    "word": "rien à foutre",
+    "translation": "scheiß drauf",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "tant|so viele": {
+    "word": "tant",
+    "translation": "so viele",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "briser|brechen": {
+    "word": "briser",
+    "translation": "brechen",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "stocker|abspeichern": {
+    "word": "stocker",
+    "translation": "abspeichern",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "Tâches ménagères|Hausarbeit": {
+    "word": "Tâches ménagères",
+    "translation": "Hausarbeit",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "faire office de|als": {
+    "word": "faire office de",
+    "translation": "als",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "bouillir|kochen": {
+    "word": "bouillir",
+    "translation": "kochen",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "s'emporter|aufbrausen": {
+    "word": "s'emporter",
+    "translation": "aufbrausen",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "coup d'oeil|Seitenblick": {
+    "word": "coup d'oeil",
+    "translation": "Seitenblick",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "épreuve|Prüfung": {
+    "word": "épreuve",
+    "translation": "Prüfung",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "retenir|halten": {
+    "word": "retenir",
+    "translation": "halten",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "démarche|Ansatz": {
+    "word": "démarche",
+    "translation": "Ansatz",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "duper|betrügen": {
+    "word": "duper",
+    "translation": "betrügen",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": true
+      }
+    ]
+  },
+  "voisinage|Nachbarschaft": {
+    "word": "voisinage",
+    "translation": "Nachbarschaft",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
+        "repeat": false
+      }
+    ]
+  },
+  "entretien|Gespräch": {
+    "word": "entretien",
+    "translation": "Gespräch",
+    "occurrences": [
+      {
+        "date": "2025-06-26T17:40:48.694182",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T17:54:55.038176",
         "repeat": false
       }
     ]
