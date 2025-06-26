@@ -5,6 +5,8 @@ import os
 import datetime
 import vlc
 import sys
+import subprocess
+import threading
 
 class VocabularyReviewer:
     def __init__(self, vocab_list, word_tracker, generated_text=None, audio_path=None):
@@ -57,8 +59,108 @@ class VocabularyReviewer:
         self.content_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         self.setup_audio_controls() # Call once to set up audio controls
+        
+        # Pull latest changes from Git on startup
+        print("🔄 Syncing with Git repository...")
+        self.sync_git_async("pull")
+        
         self.setup_start_view()
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+        
+    def git_pull(self):
+        """Pull latest changes from Git repository"""
+        try:
+            # Get the directory containing the script
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            
+            # Run git pull in the script directory
+            result = subprocess.run(['git', 'pull'], 
+                                  cwd=script_dir, 
+                                  capture_output=True, 
+                                  text=True, 
+                                  timeout=30)
+            
+            if result.returncode == 0:
+                print("✅ Successfully pulled latest changes from Git")
+                return True
+            else:
+                print(f"⚠️ Git pull warning: {result.stderr}")
+                return False
+                
+        except subprocess.TimeoutExpired:
+            print("⚠️ Git pull timed out")
+            return False
+        except FileNotFoundError:
+            print("⚠️ Git not found. Make sure Git is installed and in PATH")
+            return False
+        except Exception as e:
+            print(f"⚠️ Git pull error: {e}")
+            return False
+    
+    def git_commit_and_push(self, message="Update vocabulary tracking data"):
+        """Commit and push changes to Git repository"""
+        try:
+            # Get the directory containing the script
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            
+            # Add all changes
+            subprocess.run(['git', 'add', '.'], 
+                          cwd=script_dir, 
+                          capture_output=True, 
+                          text=True, 
+                          timeout=30)
+            
+            # Commit changes
+            commit_result = subprocess.run(['git', 'commit', '-m', message], 
+                                         cwd=script_dir, 
+                                         capture_output=True, 
+                                         text=True, 
+                                         timeout=30)
+            
+            if commit_result.returncode == 0:
+                # Push changes
+                push_result = subprocess.run(['git', 'push'], 
+                                           cwd=script_dir, 
+                                           capture_output=True, 
+                                           text=True, 
+                                           timeout=30)
+                
+                if push_result.returncode == 0:
+                    print("✅ Successfully committed and pushed changes to Git")
+                    return True
+                else:
+                    print(f"⚠️ Git push error: {push_result.stderr}")
+                    return False
+            else:
+                # Check if there were no changes to commit
+                if "nothing to commit" in commit_result.stdout:
+                    print("ℹ️ No changes to commit")
+                    return True
+                else:
+                    print(f"⚠️ Git commit error: {commit_result.stderr}")
+                    return False
+                    
+        except subprocess.TimeoutExpired:
+            print("⚠️ Git operation timed out")
+            return False
+        except FileNotFoundError:
+            print("⚠️ Git not found. Make sure Git is installed and in PATH")
+            return False
+        except Exception as e:
+            print(f"⚠️ Git operation error: {e}")
+            return False
+    
+    def sync_git_async(self, operation="pull"):
+        """Run Git operations in a separate thread to avoid blocking UI"""
+        def run_git():
+            if operation == "pull":
+                self.git_pull()
+            elif operation == "push":
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                self.git_commit_and_push(f"Update vocabulary tracking - {timestamp}")
+        
+        thread = threading.Thread(target=run_git, daemon=True)
+        thread.start()
         
     def setup_modern_styles(self):
         """Configure modern styling for the application"""
@@ -407,6 +509,11 @@ class VocabularyReviewer:
                 else:
                     self.word_tracker.mark_word_used(source, target)
             self.word_tracker.save_tracking_data()
+            
+            # Commit and push changes to Git after saving
+            print("🔄 Saving changes to Git repository...")
+            self.sync_git_async("push")
+            
         self.review_complete = True
         self.root.quit()
         self.root.destroy()
