@@ -239,6 +239,12 @@ class VocabularyReviewer:
                        font=('Segoe UI', 11),
                        background='#ffffff',
                        foreground='#495057')
+        
+        # White frame style for feedback view
+        style.configure('White.TFrame',
+                       background='#ffffff',
+                       relief='flat',
+                       borderwidth=0)
 
     def setup_start_view(self):
         for widget in self.content_frame.winfo_children():
@@ -429,6 +435,7 @@ class VocabularyReviewer:
             tile.config(style='Selected.TButton')
 
     def check_feedback(self):
+        print("DEBUG: check_feedback called")
         # DEBUG: Check and populate difficult_words for testing purposes
         print(f"--- Entering check_feedback ---")
         print(f"Initial difficult_words: {self.difficult_words}")
@@ -445,217 +452,171 @@ class VocabularyReviewer:
         for widget in self.content_frame.winfo_children():
             widget.destroy()
     
-        # Main container
-        main_frame = ttk.Frame(self.content_frame, style='Card.TFrame', padding="40")
+        # Set root background to white
+        self.root.configure(bg='white')
+        
+        # Main container - use tk.Frame for explicit white background
+        main_frame = tk.Frame(self.content_frame, bg='white')
         main_frame.pack(expand=True, fill=tk.BOTH, padx=20, pady=20)
         
         # Header row: Title (left), Action buttons (right)
-        header_frame = ttk.Frame(main_frame, style='Card.TFrame')
+        header_frame = tk.Frame(main_frame, bg='white')
         header_frame.pack(fill=tk.X, pady=(0, 30))
         
-        title = ttk.Label(header_frame, text="Review Complete", style='Heading.TLabel')
+        title = tk.Label(header_frame, text="Review Complete", font=('Segoe UI', 20, 'bold'), 
+                        bg='white', fg='#212529')
         title.pack(side=tk.LEFT)
         
         # Action buttons on the right
-        btn_frame = ttk.Frame(header_frame)
+        btn_frame = tk.Frame(header_frame, bg='white')
         btn_frame.pack(side=tk.RIGHT)
         
         ttk.Button(btn_frame, text="Generate New Text", command=self.generate_new_text, style='Modern.TButton').pack(side=tk.LEFT, padx=(0, 15))
         ttk.Button(btn_frame, text="Finish", command=self.save_and_exit, style='Accent.TButton').pack(side=tk.LEFT)
         
-        # Statistics visualization
-        stats_frame = ttk.Frame(main_frame, style='Card.TFrame')
-        stats_frame.pack(pady=(0, 30), fill=tk.X)
+        # Statistics visualization (skip for now)
+        # stats_frame = ttk.Frame(main_frame, style='Card.TFrame')
+        # stats_frame.pack(pady=(0, 30), fill=tk.X)
         
-        # Create urgency visualization
-        self.create_urgency_chart(stats_frame)
+        # Content area with horizontal layout (white background)
+        content_frame = tk.Frame(main_frame, bg='white')
+        content_frame.pack(fill=tk.BOTH, expand=True, pady=(20, 20))
         
-        # Words to repeat tiles with example sentences
+        # Left section: Two-column grid of tiles (narrower)
+        tiles_section = tk.Frame(content_frame, bg='white')
+        tiles_section.pack(side=tk.LEFT, fill=tk.Y, padx=(0, 20))
+        
+        tiles_label = tk.Label(tiles_section, text="Words that need more practice:", 
+                              font=('Segoe UI', 14), bg='white', fg='#6c757d')
+        tiles_label.pack(anchor='w', pady=(0, 10))
+        
+        # Grid container for tiles (fixed width)
+        grid_frame = tk.Frame(tiles_section, bg='white', width=400)
+        grid_frame.pack(fill=tk.Y)
+        grid_frame.pack_propagate(False)  # Maintain fixed width
+        
+        # Create tiles in 2-column grid
         if self.difficult_words:
-            ttk.Label(main_frame, text="Words that need more practice:", style='Subheading.TLabel').pack(pady=(20, 10), anchor='w')
+            tile_list = list(self.difficult_words)
+            for idx, (source, target) in enumerate(tile_list):
+                row = idx // 2
+                col = idx % 2
+                tile = self.create_compact_tile(grid_frame, source, target)
+                tile.grid(row=row, column=col, padx=3, pady=3, sticky="ew")
             
-            # Scrollable frame for tiles
-            canvas_frame = ttk.Frame(main_frame)
-            canvas_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 30))
-            
-            canvas = tk.Canvas(canvas_frame, bg='white', highlightthickness=0)
-            scrollbar = ttk.Scrollbar(canvas_frame, orient="vertical", command=canvas.yview)
-            scrollable_frame = ttk.Frame(canvas)
-            
-            scrollable_frame.bind(
-                "<Configure>",
-                lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-            )
-            
-            canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-            canvas.configure(yscrollcommand=scrollbar.set)
-            
-            # Create tiles for difficult words
-            for i, (source, target) in enumerate(self.difficult_words):
-                self.create_word_tile(scrollable_frame, source, target, i)
-            
-            canvas.pack(side="left", fill="both", expand=True)
-            scrollbar.pack(side="right", fill="y")
-            
-            # Bind mousewheel to canvas
-            def _on_mousewheel(event):
-                canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-            canvas.bind_all("<MouseWheel>", _on_mousewheel)
+            # Configure grid weights
+            grid_frame.columnconfigure(0, weight=1)
+            grid_frame.columnconfigure(1, weight=1)
+        
+        # Right section: Larger chart 
+        chart_section = tk.Frame(content_frame, bg='white')
+        chart_section.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, anchor='n')
+        
+        # Add some vertical space to align under buttons
+        spacer = tk.Label(chart_section, text="", bg='white')
+        spacer.pack(pady=(60, 0))
+        
+        self.create_urgency_chart(chart_section, width=300, height=200, minimal=True)
 
-    def create_word_tile(self, parent, source, target, index):
-        """Create a tile for a word that needs practice"""
-        # Tile container
-        tile_frame = ttk.Frame(parent, style='Card.TFrame', padding="20")
-        tile_frame.pack(fill=tk.X, padx=10, pady=10)
+    def create_compact_tile(self, parent, source, target):
+        """Create a compact tile widget with thin border"""
+        tile_frame = tk.Frame(parent, bg='white', relief='solid', bd=1)
         
-        # Word and translation
-        word_frame = ttk.Frame(tile_frame)
-        word_frame.pack(fill=tk.X, pady=(0, 10))
+        # Inner padding frame
+        inner_frame = tk.Frame(tile_frame, bg='white')
+        inner_frame.pack(fill=tk.BOTH, expand=True, padx=8, pady=8)
         
-        # Source word
-        source_label = ttk.Label(word_frame, text=source, 
-                                font=('Segoe UI', 16, 'bold'), 
-                                foreground='#2c3e50')
-        source_label.pack(side=tk.LEFT)
+        # Word row
+        word_frame = tk.Frame(inner_frame, bg='white')
+        word_frame.pack(fill=tk.X, pady=(0, 3))
         
-        # Arrow
-        arrow_label = ttk.Label(word_frame, text=" → ", 
-                               font=('Segoe UI', 14), 
-                               foreground='#7f8c8d')
-        arrow_label.pack(side=tk.LEFT)
+        tk.Label(word_frame, text=source, font=('Segoe UI', 10, 'bold'), 
+                fg='#2c3e50', bg='white').pack(side=tk.LEFT)
+        tk.Label(word_frame, text=" → ", font=('Segoe UI', 9), 
+                fg='#7f8c8d', bg='white').pack(side=tk.LEFT)
+        tk.Label(word_frame, text=target, font=('Segoe UI', 10), 
+                fg='#e74c3c', bg='white').pack(side=tk.LEFT)
         
-        # Target word
-        target_label = ttk.Label(word_frame, text=target, 
-                                font=('Segoe UI', 16), 
-                                foreground='#e74c3c')
-        target_label.pack(side=tk.LEFT)
-        
-        # Example sentence (if available)
+        # Example sentence
         key = (source, target)
-        if key in self.example_sentences:
+        if hasattr(self, 'example_sentences') and key in self.example_sentences:
+            sentence = self.example_sentences[key]
+            sentence_frame = tk.Frame(inner_frame, bg='white')
+            sentence_frame.pack(fill=tk.X)
+            
+            tk.Label(sentence_frame, text="Example:", font=('Segoe UI', 7, 'italic'), 
+                    fg='#95a5a6', bg='white').pack(anchor='w')
+            tk.Label(sentence_frame, text=sentence, font=('Segoe UI', 8), 
+                    fg='#34495e', bg='white', wraplength=150, justify='left').pack(anchor='w')
+        
+        return tile_frame
+
+
+    def create_word_tile(self, parent, source, target, index, compact=False, extra_small=False):
+        """Create a tile for a word that needs practice"""
+        pad = "4" if extra_small else ("8" if compact else "20")
+        font_main = ('Segoe UI', 9, 'bold') if extra_small else (('Segoe UI', 12, 'bold') if compact else ('Segoe UI', 16, 'bold'))
+        font_arrow = ('Segoe UI', 8) if extra_small else (('Segoe UI', 11) if compact else ('Segoe UI', 14))
+        font_target = ('Segoe UI', 9) if extra_small else (('Segoe UI', 12) if compact else ('Segoe UI', 16))
+        font_example = ('Segoe UI', 7, 'italic') if extra_small else (('Segoe UI', 8, 'italic') if compact else ('Segoe UI', 10, 'italic'))
+        font_sentence = ('Segoe UI', 8) if extra_small else (('Segoe UI', 9) if compact else ('Segoe UI', 11))
+        wrap = 150 if extra_small else (250 if compact else 600)
+        tile_frame = ttk.Frame(parent, style='Card.TFrame', padding=pad)
+        tile_frame.pack(fill=tk.X, padx=2, pady=2)
+        word_frame = ttk.Frame(tile_frame)
+        word_frame.pack(fill=tk.X, pady=(0, 2) if extra_small else ((0, 4) if compact else (0, 10)))
+        source_label = ttk.Label(word_frame, text=source, font=font_main, foreground='#2c3e50')
+        source_label.pack(side=tk.LEFT)
+        arrow_label = ttk.Label(word_frame, text=" → ", font=font_arrow, foreground='#7f8c8d')
+        arrow_label.pack(side=tk.LEFT)
+        target_label = ttk.Label(word_frame, text=target, font=font_target, foreground='#e74c3c')
+        target_label.pack(side=tk.LEFT)
+        key = (source, target)
+        if hasattr(self, 'example_sentences') and key in self.example_sentences:
             sentence = self.example_sentences[key]
             sentence_frame = ttk.Frame(tile_frame)
-            sentence_frame.pack(fill=tk.X, pady=(5, 0))
-            
-            # Example label
-            example_label = ttk.Label(sentence_frame, text="Example: ", 
-                                     font=('Segoe UI', 10, 'italic'), 
-                                     foreground='#95a5a6')
+            sentence_frame.pack(fill=tk.X, pady=(1, 0) if extra_small else ((2, 0) if compact else (5, 0)))
+            example_label = ttk.Label(sentence_frame, text="Example:", font=font_example, foreground='#95a5a6')
             example_label.pack(side=tk.LEFT)
-            
-            # Sentence text
-            sentence_label = ttk.Label(sentence_frame, text=sentence, 
-                                      font=('Segoe UI', 11), 
-                                      foreground='#34495e',
-                                      wraplength=600)
+            sentence_label = ttk.Label(sentence_frame, text=sentence, font=font_sentence, foreground='#34495e', wraplength=wrap)
             sentence_label.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
-    def create_urgency_chart(self, parent_frame):
-        """Create a line chart showing urgency levels before and after review"""
+    def create_urgency_chart(self, parent_frame, width=350, height=120, minimal=False):
         import tkinter as tk
-        
-        # Chart frame
-        chart_frame = ttk.Frame(parent_frame, style='Card.TFrame', padding="20")
-        chart_frame.pack(fill=tk.X, pady=10)
-        
-        # Title
-        ttk.Label(chart_frame, text="Vocabulary Urgency Progress", style='Subheading.TLabel').pack(pady=(0, 15))
-        
-        # Canvas for drawing the chart
-        canvas_width = 800
-        canvas_height = 300
-        chart_canvas = tk.Canvas(chart_frame, width=canvas_width, height=canvas_height, bg='white', highlightthickness=1, highlightbackground='#dee2e6')
+        chart_canvas = tk.Canvas(parent_frame, width=width, height=height, bg='white', highlightthickness=1, highlightbackground='#dee2e6')
         chart_canvas.pack()
-        
-        # Get urgency data for all words using existing priority system
         before_urgencies = []
         after_urgencies = []
-        
         for source, target, _ in self.vocab_list:
-            # Get current urgency using WordTracker's calculate_word_priority
             before_urgency = self.word_tracker.calculate_word_priority(source, target)
-            
-            # Calculate after urgency based on whether word was marked difficult
-            if (source, target) in self.difficult_words:
-                # If marked as difficult, urgency stays high or increases slightly
-                after_urgency = min(100, before_urgency + 10)
-            else:
-                # If not marked as difficult, urgency decreases significantly
-                after_urgency = max(5, before_urgency - 25)
-            
+            after_urgency = max(0, before_urgency - 20) if (source, target) not in self.difficult_words else min(100, before_urgency + 5)
             before_urgencies.append(before_urgency)
             after_urgencies.append(after_urgency)
-        
-        # Sort by before urgency (descending) to create the dropping line effect
         word_data = list(zip(before_urgencies, after_urgencies))
         word_data.sort(key=lambda x: x[0], reverse=True)
         before_urgencies = [x[0] for x in word_data]
         after_urgencies = [x[1] for x in word_data]
-        
-        # Drawing parameters
-        margin = 50
-        chart_width = canvas_width - 2 * margin
-        chart_height = canvas_height - 2 * margin
-        
-        # Draw axes
-        # Y-axis (0-100)
-        chart_canvas.create_line(margin, margin, margin, canvas_height - margin, fill='#6c757d', width=2)
-        # X-axis
-        chart_canvas.create_line(margin, canvas_height - margin, canvas_width - margin, canvas_height - margin, fill='#6c757d', width=2)
-        
-        # Y-axis labels and grid
-        for i in range(0, 101, 25):
-            y = canvas_height - margin - (i / 100) * chart_height
-            chart_canvas.create_text(margin - 15, y, text=str(i), fill='#6c757d', font=('Segoe UI', 9))
-            # Grid lines
-            chart_canvas.create_line(margin, y, canvas_width - margin, y, fill='#e9ecef', width=1)
-        
-        # Y-axis title
-        chart_canvas.create_text(15, canvas_height // 2, text='Urgency', fill='#6c757d', font=('Segoe UI', 10), angle=90)
-        
-        # X-axis label
-        chart_canvas.create_text(canvas_width // 2, canvas_height - 10, text='Words (sorted by urgency)', fill='#6c757d', font=('Segoe UI', 10))
-        
+        margin = 10
+        chart_width = width - 2 * margin
+        chart_height = height - 2 * margin
+        # Minimal axes
+        chart_canvas.create_line(margin, margin, margin, height - margin, fill='#bbb', width=1)
+        chart_canvas.create_line(margin, height - margin, width - margin, height - margin, fill='#bbb', width=1)
         if len(before_urgencies) > 1:
-            # Calculate points for lines
             x_step = chart_width / (len(before_urgencies) - 1)
-            
             before_points = []
             after_points = []
-            
             for i, (before, after) in enumerate(zip(before_urgencies, after_urgencies)):
                 x = margin + i * x_step
-                y_before = canvas_height - margin - (before / 100) * chart_height
-                y_after = canvas_height - margin - (after / 100) * chart_height
-                
+                y_before = height - margin - (before / 100) * chart_height
+                y_after = height - margin - (after / 100) * chart_height
                 before_points.extend([x, y_before])
                 after_points.extend([x, y_after])
-            
-            # Draw BEFORE line (red)
             if len(before_points) >= 4:
-                chart_canvas.create_line(before_points, fill='#dc3545', width=3, smooth=True)
-            
-            # Draw AFTER line (green)  
+                chart_canvas.create_line(before_points, fill='#dc3545', width=2, smooth=True)
             if len(after_points) >= 4:
-                chart_canvas.create_line(after_points, fill='#28a745', width=3, smooth=True)
-        
-        # Legend
-        legend_frame = ttk.Frame(chart_frame)
-        legend_frame.pack(pady=10)
-        
-        # Before legend
-        before_legend = tk.Frame(legend_frame, bg='white')
-        before_legend.pack(side=tk.LEFT, padx=(0, 20))
-        before_color = tk.Canvas(before_legend, width=20, height=3, bg='#dc3545', highlightthickness=0)
-        before_color.pack(side=tk.LEFT, padx=(0, 5))
-        ttk.Label(before_legend, text="Before this text", style='Body.TLabel').pack(side=tk.LEFT)
-        
-        # After legend
-        after_legend = tk.Frame(legend_frame, bg='white')
-        after_legend.pack(side=tk.LEFT)
-        after_color = tk.Canvas(after_legend, width=20, height=3, bg='#28a745', highlightthickness=0)
-        after_color.pack(side=tk.LEFT, padx=(0, 5))
-        ttk.Label(after_legend, text="After this text", style='Body.TLabel').pack(side=tk.LEFT)
+                chart_canvas.create_line(after_points, fill='#28a745', width=2, smooth=True)
+        # No labels, no title, just axes and lines
 
     def save_and_exit(self):
         if self.save_allowed:

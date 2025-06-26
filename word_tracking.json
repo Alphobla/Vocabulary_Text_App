@@ -52,6 +52,14 @@
       {
         "date": "2025-06-23T22:28:50.350952",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
       }
     ]
   },
@@ -242,6 +250,14 @@
       {
         "date": "2025-06-23T22:28:50.350952",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
       }
     ]
   },
@@ -636,6 +652,14 @@
       {
         "date": "2025-06-23T22:51:07.495457",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
       }
     ]
   },
@@ -1066,6 +1090,14 @@
       {
         "date": "2025-06-23T23:40:01.911193",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
       }
     ]
   },
@@ -1396,6 +1428,14 @@
       {
         "date": "2025-06-24T17:13:16.882417",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": true
       }
     ]
   },
@@ -1452,6 +1492,14 @@
       {
         "date": "2025-06-24T17:13:16.882417",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": true
       }
     ]
   },
@@ -1466,6 +1514,14 @@
       {
         "date": "2025-06-24T18:08:47.386758",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
       }
     ]
   },
@@ -2432,6 +2488,14 @@
       {
         "date": "2025-06-25T09:23:54.951591",
         "repeat": true
+      },
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": true
       }
     ]
   },
@@ -3034,6 +3098,174 @@
       {
         "date": "2025-06-26T17:54:55.038176",
         "repeat": false
+      }
+    ]
+  },
+  "du coin|von hier": {
+    "word": "du coin",
+    "translation": "von hier",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "en tant que|Als": {
+    "word": "en tant que",
+    "translation": "Als",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "entretien|Wartung": {
+    "word": "entretien",
+    "translation": "Wartung",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "surchargé|überfordert": {
+    "word": "surchargé",
+    "translation": "überfordert",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "saisir justice|Klage vor Gericht": {
+    "word": "saisir justice",
+    "translation": "Klage vor Gericht",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "denrées|Lebensmittel": {
+    "word": "denrées",
+    "translation": "Lebensmittel",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "cible|Ziel": {
+    "word": "cible",
+    "translation": "Ziel",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "fâché|sauer": {
+    "word": "fâché",
+    "translation": "sauer",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": true
+      }
+    ]
+  },
+  "sous peu|in Kürze": {
+    "word": "sous peu",
+    "translation": "in Kürze",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "enfourcher|steigen": {
+    "word": "enfourcher",
+    "translation": "steigen",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": true
+      }
+    ]
+  },
+  "fierté|Stolz": {
+    "word": "fierté",
+    "translation": "Stolz",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": false
+      }
+    ]
+  },
+  "tant que|solange": {
+    "word": "tant que",
+    "translation": "solange",
+    "occurrences": [
+      {
+        "date": "2025-06-26T19:25:50.078168",
+        "repeat": false
+      },
+      {
+        "date": "2025-06-26T19:32:37.159775",
+        "repeat": true
       }
     ]
   }
