@@ -429,6 +429,18 @@ class VocabularyReviewer:
             tile.config(style='Selected.TButton')
 
     def check_feedback(self):
+        # DEBUG: Check and populate difficult_words for testing purposes
+        print(f"--- Entering check_feedback ---")
+        print(f"Initial difficult_words: {self.difficult_words}")
+        if not self.difficult_words:
+            print("DEBUG: difficult_words is empty. Populating with test data for display.")
+            # Using a sample of words that exist in the test_vocab
+            self.difficult_words = {
+                ('hello', 'hola'),
+                ('goodbye', 'adiós'),
+                ('please', 'por favor')
+            }
+
         self.save_allowed = True
         for widget in self.content_frame.winfo_children():
             widget.destroy()
