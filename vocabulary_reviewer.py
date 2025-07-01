@@ -585,20 +585,50 @@ class VocabularyReviewer:
         import tkinter as tk
         chart_canvas = tk.Canvas(parent_frame, width=width, height=height, bg='white', highlightthickness=1, highlightbackground='#dee2e6')
         chart_canvas.pack()
-        before_urgencies = []
-        after_urgencies = []
-        for source, target, _ in self.vocab_list:
-            before_urgency = self.word_tracker.calculate_word_priority(source, target)
-            after_urgency = max(0, before_urgency - 20) if (source, target) not in self.difficult_words else min(100, before_urgency + 5)
-            before_urgencies.append(before_urgency)
-            after_urgencies.append(after_urgency)
-        word_data = list(zip(before_urgencies, after_urgencies))
-        word_data.sort(key=lambda x: x[0], reverse=True)
-        before_urgencies = [x[0] for x in word_data]
-        after_urgencies = [x[1] for x in word_data]
+        # Create set of session words (vocab_list) for quick lookup
+        session_words = set((source, target) for source, target, _ in self.vocab_list)
+        
+        # Collect before/after data for all words
+        word_data = []
+        
+        # Use all words from word_tracker's data (JSON file), not just vocab_list
+        if hasattr(self.word_tracker, 'word_stats') and self.word_tracker.word_stats:
+            # Parse keys from JSON tracking data (format: "source|target")
+            for word_key in self.word_tracker.word_stats.keys():
+                if '|' in word_key:
+                    source, target = word_key.split('|', 1)
+                    before_urgency = self.word_tracker.calculate_word_priority(source, target)
+                    
+                    # Only apply -20 for session words that are not difficult_words
+                    if (source, target) in session_words and (source, target) not in self.difficult_words:
+                        after_urgency = max(0, before_urgency - 20)
+                    elif (source, target) in self.difficult_words:
+                        after_urgency = min(100, before_urgency + 5)
+                    else:
+                        # All other words keep their original urgency
+                        after_urgency = before_urgency
+                    
+                    word_data.append((before_urgency, after_urgency))
+                else:
+                    print(f"DEBUG: Invalid word key format: {word_key}. Expected 'source|target'. Skipping.")
+        else:
+            print("DEBUG: No tracking data found, using vocab_list for urgency chart.")
+            # Fallback to vocab_list if no tracking data exists
+            for source, target, _ in self.vocab_list:
+                before_urgency = self.word_tracker.calculate_word_priority(source, target)
+                after_urgency = max(0, before_urgency - 20) if (source, target) not in self.difficult_words else min(100, before_urgency + 5)
+                word_data.append((before_urgency, after_urgency))
+        
+        # Sort before and after separately by urgency (highest first)
+        before_data = sorted([x[0] for x in word_data])
+        after_data = sorted([x[1] for x in word_data])
+        
+        before_urgencies = before_data
+        after_urgencies = after_data
+        
         margin = 10
-        chart_width = width - 2 * margin
-        chart_height = height - 2 * margin
+        chart_width = width - margin
+        chart_height = height - margin
         # Minimal axes
         chart_canvas.create_line(margin, margin, margin, height - margin, fill='#bbb', width=1)
         chart_canvas.create_line(margin, height - margin, width - margin, height - margin, fill='#bbb', width=1)
@@ -608,8 +638,8 @@ class VocabularyReviewer:
             after_points = []
             for i, (before, after) in enumerate(zip(before_urgencies, after_urgencies)):
                 x = margin + i * x_step
-                y_before = height - margin - (before / 100) * chart_height
-                y_after = height - margin - (after / 100) * chart_height
+                y_before = (before / 100) * chart_height
+                y_after = (after / 100) * chart_height
                 before_points.extend([x, y_before])
                 after_points.extend([x, y_after])
             if len(before_points) >= 4:
