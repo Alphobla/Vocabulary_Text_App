@@ -85,11 +85,23 @@ class VocabularyReviewer:
                 print("✅ Successfully pulled latest changes from Git")
                 return True
             else:
-                print(f"⚠️ Git pull warning: {result.stderr}")
+                # Check for authentication failures
+                error_msg = result.stderr.lower()
+                if any(auth_error in error_msg for auth_error in [
+                    'authentication failed', 'access denied', 'permission denied',
+                    'could not read username', 'could not read password',
+                    'repository not found', '403', '401', 'unauthorized'
+                ]):
+                    print("🔐 Git authentication failed. Please check your credentials:")
+                    print("   • For HTTPS: Update stored credentials in Windows Credential Manager")
+                    print("   • For SSH: Ensure your SSH keys are set up correctly")
+                    print("   • Consider using a Personal Access Token for GitHub")
+                else:
+                    print(f"⚠️ Git pull warning: {result.stderr}")
                 return False
                 
         except subprocess.TimeoutExpired:
-            print("⚠️ Git pull timed out")
+            print("⚠️ Git pull timed out - this might indicate network or authentication issues")
             return False
         except FileNotFoundError:
             print("⚠️ Git not found. Make sure Git is installed and in PATH")
@@ -105,11 +117,15 @@ class VocabularyReviewer:
             script_dir = os.path.dirname(os.path.abspath(__file__))
             
             # Add all changes
-            subprocess.run(['git', 'add', '.'], 
+            add_result = subprocess.run(['git', 'add', '.'], 
                           cwd=script_dir, 
                           capture_output=True, 
                           text=True, 
                           timeout=30)
+            
+            if add_result.returncode != 0:
+                print(f"⚠️ Git add failed: {add_result.stderr}")
+                return False
             
             # Commit changes
             commit_result = subprocess.run(['git', 'commit', '-m', message], 
@@ -130,7 +146,20 @@ class VocabularyReviewer:
                     print("✅ Successfully committed and pushed changes to Git")
                     return True
                 else:
-                    print(f"⚠️ Git push error: {push_result.stderr}")
+                    # Check for authentication failures in push
+                    error_msg = push_result.stderr.lower()
+                    if any(auth_error in error_msg for auth_error in [
+                        'authentication failed', 'access denied', 'permission denied',
+                        'could not read username', 'could not read password',
+                        'repository not found', '403', '401', 'unauthorized',
+                        'support for password authentication was removed'
+                    ]):
+                        print("🔐 Git push authentication failed. Common solutions:")
+                        print("   • GitHub: Use Personal Access Token instead of password")
+                        print("   • Run: git config --global credential.helper manager-core")
+                        print("   • Or switch to SSH: git remote set-url origin git@github.com:user/repo.git")
+                    else:
+                        print(f"⚠️ Git push error: {push_result.stderr}")
                     return False
             else:
                 # Check if there were no changes to commit
@@ -142,7 +171,7 @@ class VocabularyReviewer:
                     return False
                     
         except subprocess.TimeoutExpired:
-            print("⚠️ Git operation timed out")
+            print("⚠️ Git operation timed out - check network connection and authentication")
             return False
         except FileNotFoundError:
             print("⚠️ Git not found. Make sure Git is installed and in PATH")
@@ -620,11 +649,8 @@ class VocabularyReviewer:
                 word_data.append((before_urgency, after_urgency))
         
         # Sort before and after separately by urgency (highest first)
-        before_data = sorted([x[0] for x in word_data])
-        after_data = sorted([x[1] for x in word_data])
-        
-        before_urgencies = before_data
-        after_urgencies = after_data
+        before_urgencies = sorted([x[0] for x in word_data], reverse=True)
+        after_urgencies = sorted([x[1] for x in word_data], reverse=True)
         
         margin = 10
         chart_width = width - margin
@@ -638,8 +664,8 @@ class VocabularyReviewer:
             after_points = []
             for i, (before, after) in enumerate(zip(before_urgencies, after_urgencies)):
                 x = margin + i * x_step
-                y_before = (before / 100) * chart_height
-                y_after = (after / 100) * chart_height
+                y_before = height - margin - (before / 100) * chart_height
+                y_after = height - margin - (after / 100) * chart_height
                 before_points.extend([x, y_before])
                 after_points.extend([x, y_after])
             if len(before_points) >= 4:
@@ -655,6 +681,7 @@ class VocabularyReviewer:
                     self.word_tracker.mark_word_not_understood(source, target)
                 else:
                     self.word_tracker.mark_word_used(source, target)
+            print("💾 Saving new vocabulary tracking data...")
             self.word_tracker.save_tracking_data()
             
             # Commit and push changes to Git after saving
