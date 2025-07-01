@@ -428,6 +428,14 @@
       {
         "date": "2025-06-23T22:37:21.796624",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
       }
     ]
   },
@@ -682,6 +690,14 @@
       {
         "date": "2025-06-23T22:51:07.495457",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": true
       }
     ]
   },
@@ -831,6 +847,14 @@
       },
       {
         "date": "2025-06-23T22:51:07.495457",
+        "repeat": true
+      },
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
         "repeat": true
       }
     ]
@@ -1072,6 +1096,14 @@
       {
         "date": "2025-06-23T23:40:01.911193",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
       }
     ]
   },
@@ -1086,6 +1118,14 @@
       {
         "date": "2025-06-23T23:40:01.911193",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
       }
     ]
   },
@@ -2754,6 +2794,14 @@
       {
         "date": "2025-06-25T09:41:27.574173",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
       }
     ]
   },
@@ -3497,6 +3545,202 @@
       },
       {
         "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "rater|verpassen": {
+    "word": "rater",
+    "translation": "verpassen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": true
+      }
+    ]
+  },
+  "adhérer|anschließen": {
+    "word": "adhérer",
+    "translation": "anschließen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "relâcher|freilassen": {
+    "word": "relâcher",
+    "translation": "freilassen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "fauché|pleite": {
+    "word": "fauché",
+    "translation": "pleite",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "aisé|einfach": {
+    "word": "aisé",
+    "translation": "einfach",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "faire de son mieux|sein Bestes tun": {
+    "word": "faire de son mieux",
+    "translation": "sein Bestes tun",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "canular|Hoax": {
+    "word": "canular",
+    "translation": "Hoax",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": true
+      }
+    ]
+  },
+  "vaincre|besiegen": {
+    "word": "vaincre",
+    "translation": "besiegen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "hebdomadaire|wöchentlich": {
+    "word": "hebdomadaire",
+    "translation": "wöchentlich",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "trahir|verraten": {
+    "word": "trahir",
+    "translation": "verraten",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": true
+      }
+    ]
+  },
+  "advenir|geschehen": {
+    "word": "advenir",
+    "translation": "geschehen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": true
+      }
+    ]
+  },
+  "se tiendra|findet": {
+    "word": "se tiendra",
+    "translation": "findet",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "lèvres|Mund": {
+    "word": "lèvres",
+    "translation": "Mund",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
+        "repeat": false
+      }
+    ]
+  },
+  "à la fois|gleichzeitig": {
+    "word": "à la fois",
+    "translation": "gleichzeitig",
+    "occurrences": [
+      {
+        "date": "2025-07-01T11:09:37.480421",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T11:15:13.209535",
         "repeat": false
       }
     ]
