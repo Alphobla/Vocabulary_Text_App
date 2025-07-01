@@ -456,6 +456,14 @@
       {
         "date": "2025-06-23T22:37:21.796624",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
       }
     ]
   },
@@ -688,6 +696,14 @@
       {
         "date": "2025-06-23T22:51:07.495457",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
       }
     ]
   },
@@ -751,6 +767,14 @@
       },
       {
         "date": "2025-06-25T00:34:41.717294",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
         "repeat": false
       }
     ]
@@ -1620,6 +1644,14 @@
       {
         "date": "2025-06-24T18:08:47.386758",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": true
       }
     ]
   },
@@ -1732,6 +1764,14 @@
       {
         "date": "2025-06-24T18:08:47.386758",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
       }
     ]
   },
@@ -2026,6 +2066,14 @@
       {
         "date": "2025-06-24T23:56:08.685158",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
       }
     ]
   },
@@ -2776,6 +2824,14 @@
       {
         "date": "2025-06-25T09:41:27.574173",
         "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
       }
     ]
   },
@@ -2803,6 +2859,14 @@
       },
       {
         "date": "2025-06-25T09:41:27.574173",
+        "repeat": true
+      },
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
         "repeat": true
       }
     ]
@@ -3266,6 +3330,174 @@
       {
         "date": "2025-06-26T19:32:37.159775",
         "repeat": true
+      }
+    ]
+  },
+  "être allongé|liegen": {
+    "word": "être allongé",
+    "translation": "liegen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "fardeau|Last": {
+    "word": "fardeau",
+    "translation": "Last",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": true
+      }
+    ]
+  },
+  "casser|zerbrechen": {
+    "word": "casser",
+    "translation": "zerbrechen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "L'aîné|Dieser ältere": {
+    "word": "L'aîné",
+    "translation": "Dieser ältere",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": true
+      }
+    ]
+  },
+  "la honte|Schande": {
+    "word": "la honte",
+    "translation": "Schande",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "faire le sale boulot|die Drecksarbeit machen": {
+    "word": "faire le sale boulot",
+    "translation": "die Drecksarbeit machen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "trancher|entscheiden": {
+    "word": "trancher",
+    "translation": "entscheiden",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "dégoût|Ekel": {
+    "word": "dégoût",
+    "translation": "Ekel",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "s'emmerder|sich langweilen": {
+    "word": "s'emmerder",
+    "translation": "sich langweilen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "Volage|unbeständige": {
+    "word": "Volage",
+    "translation": "unbeständige",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": true
+      }
+    ]
+  },
+  "assoupir|einschlafen": {
+    "word": "assoupir",
+    "translation": "einschlafen",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
+      }
+    ]
+  },
+  "marge|Rand": {
+    "word": "marge",
+    "translation": "Rand",
+    "occurrences": [
+      {
+        "date": "2025-07-01T10:50:08.772408",
+        "repeat": false
+      },
+      {
+        "date": "2025-07-01T10:57:47.808710",
+        "repeat": false
       }
     ]
   }
